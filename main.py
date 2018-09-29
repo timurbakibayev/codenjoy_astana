@@ -195,8 +195,6 @@ def preprocess(field, x, y, current):
                             found_i = True
                             i_pos = j
 
-
-
             results.append({"error": result, "sim": sim, "rotated": rotated, "distance": (i_pos-x_pos)**2})
         rotated += 1
 
@@ -211,10 +209,11 @@ def preprocess(field, x, y, current):
     rotated = results[0]["rotated"]
     distance = results[0]["distance"]
     for result in results:
-        if best > result["error"] or (best == result["error"] and distance > result["distance"]):# and not ((rotated == 0) and result["rotated"] > 0):
+        if best > result["error"] or ((best == result["error"]) and (distance > result["distance"])):# and not ((rotated == 0) and result["rotated"] > 0):
             best = result["error"]
             sim = result["sim"]
             rotated = result["rotated"]
+            distance = result["distance"]
 
     if rotated > 0:
         global_reply = "ACT"
