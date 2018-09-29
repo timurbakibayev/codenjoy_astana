@@ -45,9 +45,18 @@ def simulate(a,figure,x):
     for i in range(4):
         for j in range(4):
             if figure[i][j]:
+                d = 0
                 for k in range(i + y, 16):
-                    if b[k][j + x] == " ":
-                        result += 1
+                    if b[k][j + x] == " " and (i+d > len(figure)-1 or not(figure[i+d][j])):
+                        result += 2
+                    d += 1
+    for i in range(16):
+        full = True
+        for j in range(16):
+            if b[i][j] == " ":
+                full = False
+        if full:
+            result -= 10
     result += 15-y
     return result, b
 
@@ -183,12 +192,12 @@ def preprocess(field, x, y, current):
     sim = results[0]["sim"]
     rotated = results[0]["rotated"]
     for result in results:
-        if best >= result["error"] and not ((rotated == 0) and result["rotated"]>0):
+        if best >= result["error"]:# and not ((rotated == 0) and result["rotated"] > 0):
             best = result["error"]
             sim = result["sim"]
             rotated = result["rotated"]
 
-    if rotated:
+    if rotated > 0:
         global_reply = "ACT"
     else:
         found_x = False
