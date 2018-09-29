@@ -64,22 +64,22 @@ def preprocess(field, x, y, current):
 
     global global_reply
 
-    keypress = True
-    while keypress:
-        keypress = False
-        key = msvcrt.kbhit()
-        if key:
-            ret = ord(msvcrt.getch())
-            if ret == 75:
-                global_reply = "LEFT"
-            if ret == 77:
-                global_reply = "RIGHT"
-            if ret == 72:
-                global_reply = "ACT"
-            if ret == 32:
-                global_reply = "DOWN"
-            keypress = True
-            print(ret)
+    # keypress = True
+    # while keypress:
+    #     keypress = False
+    #     key = msvcrt.kbhit()
+    #     if key:
+    #         ret = ord(msvcrt.getch())
+    #         if ret == 75:
+    #             global_reply = "LEFT"
+    #         if ret == 77:
+    #             global_reply = "RIGHT"
+    #         if ret == 72:
+    #             global_reply = "ACT"
+    #         if ret == 32:
+    #             global_reply = "DOWN"
+    #         keypress = True
+    #         print(ret)
 
     a = []
     for i in range(16):
