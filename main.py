@@ -179,7 +179,25 @@ def preprocess(field, x, y, current):
     for figure in r:
         for j in range(-3,16):
             result, sim = simulate(a,figure,j)
-            results.append({"error": result, "sim": sim, "rotated": rotated})
+
+            found_x = False
+            found_i = False
+            x_pos = 0
+            i_pos = 0
+            for i in range(16):
+                for j in range(16):
+                    if sim[i][j] == "x":
+                        if not found_x:
+                            found_x = True
+                            x_pos = j
+                    elif sim[i][j] != " " and sim[i][j] == sim[i][j].lower():
+                        if not found_i:
+                            found_i = True
+                            i_pos = j
+
+
+
+            results.append({"error": result, "sim": sim, "rotated": rotated, "distance": (i_pos-x_pos)**2})
         rotated += 1
 
 
@@ -191,8 +209,9 @@ def preprocess(field, x, y, current):
     best = results[0]["error"]
     sim = results[0]["sim"]
     rotated = results[0]["rotated"]
+    distance = results[0]["distance"]
     for result in results:
-        if best >= result["error"]:# and not ((rotated == 0) and result["rotated"] > 0):
+        if best > result["error"] or (best == result["error"] and distance > result["distance"]):# and not ((rotated == 0) and result["rotated"] > 0):
             best = result["error"]
             sim = result["sim"]
             rotated = result["rotated"]
